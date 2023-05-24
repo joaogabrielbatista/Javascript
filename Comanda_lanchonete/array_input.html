@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let numeros = []
+        function adicionar() {
+            let num = document.getElementById('cNum').value
+            let respF = document.getElementById('respFinal')
+            resutado = num+respF;
+            document.getElementById('mostra').innerHTML = resutado;
+        }
+    </script>
+</head>
+
+
+<body>
+    <input type="text" class="cNum"/>
+    <input type="text" class="respFinal"/>
+    <button id="exemplo">Salvar medicamento</button>
+    <input type="button" onclick="adicionar()" value="resultado">
+    <p id="mostra"></p>
+</body>
+
+</html>

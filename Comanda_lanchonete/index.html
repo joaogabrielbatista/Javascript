@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Lanchonete</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    table {
+        border: 1px solid #000000;
+        
+    }
+</style>
+<script>
+    function subtotal() {
+        a = parseFloat(document.getElementById("quantidades").value);
+        b = parseFloat(document.getElementById("precos").value);
+        result = a * b;
+        document.getElementById("subtotais").value = result;
+    } 
+    add = 1
+    function adicionar() {
+        add++
+        document.getElementById("informacoes").innerHTML += "<tr<td>"+add+"</td><td><td><select name='comidas' id='comida'><option value='Cachorro Quente'>cacquente</option><option value='X-Tudo'>xtudo</option><option value='X-eggs'>xeggs</option><option value='Misto'>misto</option><option value='Queijo Quente'>qquente</option></select></td><td><input type='text' name='' id='quantidades'></td><td><input type='text' name='' id='precos'></td><td><input disabled type='text' name='' id='subtotais'></td></tr>"
+    }
+    function limpar() {
+        document.getElementById("informacoes").innerHTML = "<tr><th>#</th><th>Descrição</th><th>Qtd</th><th>Preço</th><th>Subtotal</th></tr>";
+    }
+</script>
+
+<body>
+    <h1>Comanda do cliente:</h1>
+    <table id="informacoes">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Descrição</th>
+                <th>Qtd</th>
+                <th>Preço</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>
+                    <select name="comidas" id="comida">
+                        <option value="Cachorro Quente">cachorro quente</option>
+                        <option value="X-Tudo">xtudo</option>
+                        <option value="X-eggs">xeggs</option>
+                        <option value="Misto">misto</option>
+                        <option value="Queijo Quente">queijo quente</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="" id="quantidades">
+                </td>
+                <td>
+                    <input type="text" name="" id="precos">
+                </td>
+                <td>
+                    <input disabled type="text" name="" onblur="subtotal()" id="subtotais">
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <p id="total">Total R$</p>
+    <input type="button" onclick="adicionar()" value="Adicionar lanche">
+    <input type="button" onclick="subtotal()" value="Calcular Total">
+    <input type="reset" onclick="limpar()" value="Limpar Comanda">
+</body>
+
+</html>

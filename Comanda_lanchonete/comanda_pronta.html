@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Lanchonete</title>
+
+    <style>
+
+        body {
+            background-color: rgb(170, 109, 189);
+            color: #fff;
+        }
+
+        table {
+            width: 800px;
+            border: 2px solid black;
+            border-collapse: collapse;
+
+        }
+
+        th, td {
+            border: 2px solid black;
+            text-align: center;
+            vertical-align: center;
+            padding: 8px;
+        }
+        input{
+            margin-bottom: 15px;
+        }
+
+    </style>
+
+
+    <script>
+        numLinha = 0
+        function addLinha(){
+            numLinha ++
+            document.getElementById('tabelaComanda').innerHTML += "<tr><td>"+numLinha+"</td><td><select name='cardapio'><option value='BatataFrita'>Batata Frita</option><option value='hotDog'>Hot Dog</option><option value='milkshake'>Milk-Shake</option><option value='pizza'>Pizza</option><option value='cocaCola'>Coca Cola</option></select></td><td><input type='text' onblur='subTotal(this)'> </td><td><input type='text' onblur='subTotal(this)'> </td><td><input type='text' class='subtotal' disabled> </td></tr>"
+        }
+
+        function subTotal(e){
+            qtd = e.parentElement.parentElement.children[2].children[0].value//Qtd
+            preco = e.parentElement.parentElement.children[3].children[0].value//Preco
+            subtotal = parseFloat(qtd) * parseFloat(preco)
+            
+            e.parentElement.parentElement.children[4].children[0].value = subtotal
+        }
+        function limparComanda(){
+            numLinha = 0
+            document.getElementById('tabelaComanda').innerHTML = "<tr><th>#</th><th>Descrição</th><th>Qtd</th><th>Preço</th><th>Subtotal</th></tr>"
+            document.getElementById('total').innerHTML = "0"
+        }
+        function totalComanda(){
+            valorTotal = 0
+            subtotais = [...document.querySelectorAll('.subtotal')]
+            subtotais.forEach(subtotal => {
+                valorTotal += parseFloat(subtotal.value)
+            });
+            document.getElementById('total').innerHTML = valorTotal
+
+        }
+    </script>
+
+</head>
+<body>
+    
+    <h1>Comanda do Cliente:</h1>
+
+    <div>
+        <input type="button" value="Adiconar Linha" onclick="addLinha()">
+        <table id="tabelaComanda">
+            <tr>
+                <th>#</th>
+                <th>Descrição</th>
+                <th>Qtd</th>
+                <th>Preço</th>
+                <th>Subtotal</th>
+            </tr>
+        </table>
+
+        <p>Total: <span id="total"></span> </p>
+        <input type="button" value="Calcular Total" onclick="totalComanda()">
+        <input type="reset" value="Limpar Comanda" onclick="limparComanda()"> 
+    </div>   
+
+</body>
+</html>

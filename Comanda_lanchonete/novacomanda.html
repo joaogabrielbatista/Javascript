@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Adiciona e remove linhas de uma tabela dinamicamente via Javascript</title>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            margin-left: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1,
+        p,
+        input {
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+
+        .cerquilha {
+            width: 15px;
+        }
+
+        .menor_largura {
+            width: 50px;
+
+        }
+
+        #comida {
+            width: 95%;
+            margin: 2px;
+        }
+
+        .margem {
+            width: 95%;
+            margin: 1px;
+        }
+    </style>
+    <script>
+        var sub=[];
+        
+        
+        //Funcao adiciona uma nova linha na tabela
+        numero = 0;
+
+        function adicionaLinha(idTabela) {
+            numero++;
+            var tabela = document.getElementById(idTabela);
+            var numeroLinhas = tabela.rows.length;
+            var linha = tabela.insertRow(numeroLinhas);
+            var celula1 = linha.insertCell(0);
+            var celula2 = linha.insertCell(1);
+            var celula3 = linha.insertCell(2);
+            var celula4 = linha.insertCell(3);
+            var celula5 = linha.insertCell(4);
+            celula1.innerHTML = numero;
+            celula2.innerHTML = '<select name="comidas" id="comida"><option value="CaQuente">cachorro quente</option><option value="X-Tudo">xtudo</option><option value="X-eggs">xeggs</option><option value="Misto">misto</option><option value="Queijo Quente">queijo quente</option></select>';
+            celula3.innerHTML = '<input type="text" name="quantidad" id="quantidades" onblur="subtotal(this)" class="margem" class="quantidade">';
+            celula4.innerHTML = '<input type="text" name="prec" id="precos" onblur="subtotal(this)" class="margem" class="preco">';
+            celula5.innerHTML = '<input type="text" name="" disabled id="subtotais" onblur="subtotal()" class="margem">';
+        }function subtotal(x) {
+            var qtd = x.parentElement.parentElement.children[2].children[0].value//Qtd
+            var preco = x.parentElement.parentElement.children[3].children[0].value//Preco
+            var result = parseFloat(qtd) * parseFloat(preco)
+            
+            x.parentElement.parentElement.children[4].children[0].value = result
+            
+        }function calcTotal() {
+            var total = 0;
+            for (var i = 0; i < sub.length; i++) {
+                total += sub[i];
+            }
+            document.getElementById('total').innerHTML = total;
+        }
+
+        // funcao remove uma linha da tabela
+        function removeLinha() {
+            numero = 0;
+            document.getElementById('tabela').innerHTML = "<tr><td class='cerquilha'>#</td><td>Descrição</td><td class='menor_largura'>Qtd</td><td>Preço</td><td>Subtotal</td></tr>"
+        }            
+    </script>
+</head>
+
+<body>
+    <h1>Comanda do Cliente:</h1>
+    <table id="tabela">
+        <tr>
+            <td class="cerquilha">#</td>
+            <td>Descrição</td>
+            <td class="menor_largura">Qtd</td>
+            <td>Preço</td>
+            <td>Subtotal</td>
+        </tr>
+    </table>
+    <p>TOTAL R$ <span id="total"></span> </p>
+    <input type="button" onclick="adicionaLinha('tabela')" value="Adicionar Pedido">
+    <input type="button" onclick="calcTotal('total')" value="Calcular Total">
+    <input type="button" onclick="removeLinha(this)" value="Limpar Comanda">
+</body>
+
+</html>
